@@ -1,0 +1,25 @@
+version: '3'
+services:
+  db:
+    image: crulises/jcs-demo:db-prueba-1
+    container_name: db_php
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: prueba
+    ports:
+      - "3306:3306"
+    tty: true
+
+  web:
+    # Esta linea descarga el contenedor desde un registro en la red
+    # image: <IP-REGISTRO>:5000/jcs-demo:web-prueba-1
+    # Esta linea descarga el contenedor desde un registro en la nube
+    image: crulises/jcs-demo:web-prueba-2
+    container_name: web_php
+    depends_on:
+      - db
+    ports:
+      - "8100:80"
+    stdin_open: true
+    tty: true
+
